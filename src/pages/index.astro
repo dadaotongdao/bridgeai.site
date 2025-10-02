@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/UI/Hero.astro';
+import Container from '../components/UI/Container.astro';
+import Section from '../components/UI/Section.astro';
+import Card from '../components/UI/Card.astro';
+import Stat from '../components/UI/Stat.astro';
+import Button from '../components/UI/Button.astro';
+import Badge from '../components/UI/Badge.astro';
+import { siteConfig } from '../site.config';
+
+// SEO specific to home page
+const pageTitle = `${siteConfig.title} - ${siteConfig.description}`;
+const pageDescription = siteConfig.description;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <Hero
+    title="用AI，把旧世界的问题一周内跑起来"
+    subtitle="你给问题，我交付能运行的小系统"
+    description="自动化/脚本/看板/SOP，让数字证明价值。48小时闪电诊断，7天交付上线，用结果说话。"
+    primaryCTA={{
+      text: '预约闪电诊断（48小时）',
+      href: '/contact'
+    }}
+    secondaryCTA={{
+      text: '查看服务套餐',
+      href: '/services'
+    }}
+    backgroundImage="/og-default.png"
+  />
+
+  <!-- Stats Section -->
+  <Section spacing="md" class="bg-gray-50">
+    <Container>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {siteConfig.stats.map((stat) => (
+          <Stat 
+            value={stat.value} 
+            label={stat.label}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Services Overview -->
+  <Section spacing="xl">
+    <Container>
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          三大核心服务
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          专注于解决中小企业的实际业务问题，用AI技术提升效率，降低成本
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {siteConfig.services.map((service, index) => (
+          <Card 
+            variant="elevated" 
+            class="p-6 hover:scale-105 transition-transform duration-300"
+          >
+            <div class="mb-4">
+              <Badge variant="primary" size="md">
+                服务 {index + 1}
+              </Badge>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              {service.title}
+            </h3>
+            <p class="text-gray-600 mb-4">
+              {service.description}
+            </p>
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-900 mb-2">交付物清单：</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                {service.deliverables.map((item) => (
+                  <li class="flex items-center">
+                    <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-gray-500">{service.timeline}</span>
+              <span class="font-semibold text-primary-500">{service.price}</span>
+            </div>
+          </Card>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <Button href="/services" variant="primary" size="lg">
+          查看详细服务方案
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Process Section -->
+  <Section spacing="xl" class="bg-gray-50">
+    <Container>
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          简单三步，快速启动
+        </h2>
+        <p class="text-xl text-gray-600">
+          从问题诊断到方案交付，全程透明，用数字说话
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-white text-2xl font-bold">1</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">闪电诊断</h3>
+          <p class="text-gray-600">
+            48小时内深度分析您的业务流程，识别AI自动化机会点
+          </p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-white text-2xl font-bold">2</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">方案设计</h3>
+          <p class="text-gray-600">
+            基于诊断结果，设计定制化AI解决方案和详细实施计划
+          </p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-white text-2xl font-bold">3</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">快速交付</h3>
+          <p class="text-gray-600">
+            7天内交付可运行的系统，提供培训支持和效果追踪
+          </p>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <Button href="/contact" variant="outline" size="lg">
+          开始您的AI转型之旅
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section spacing="xl" class="bg-primary-500">
+    <Container>
+      <div class="text-center text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          准备好用AI改变您的业务了吗？
+        </h2>
+        <p class="text-xl mb-8 opacity-90">
+          立即预约免费诊断，获得专属AI解决方案建议
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/contact" variant="secondary" size="lg">
+            免费预约诊断
+          </Button>
+          <Button href="/cases" variant="ghost" class="text-white hover:bg-white/20 border-white">
+            查看成功案例
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

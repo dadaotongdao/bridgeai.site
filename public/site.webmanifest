@@ -1,0 +1,22 @@
+{
+  "name": "Bridge AI Studio",
+  "short_name": "BridgeAI",
+  "description": "用AI，把旧世界的问题一周内跑起来",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#245BFF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "zh-CN",
+  "scope": "/",
+  "prefer_related_applications": false
+}

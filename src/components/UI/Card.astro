@@ -1,0 +1,35 @@
+---
+export interface Props {
+  variant?: 'default' | 'elevated' | 'outlined';
+  class?: string;
+  href?: string;
+  target?: string;
+}
+
+const { 
+  variant = 'default', 
+  class: className = '',
+  href,
+  target
+} = Astro.props;
+
+const baseClasses = 'rounded-xl transition-all duration-200';
+
+const variants = {
+  default: 'bg-white border border-gray-200',
+  elevated: 'bg-white shadow-lg hover:shadow-xl',
+  outlined: 'bg-transparent border-2 border-gray-200 hover:border-primary-500'
+};
+
+const classes = `${baseClasses} ${variants[variant]} ${className}`;
+---
+
+{href ? (
+  <a href={href} class={classes} target={target}>
+    <slot />
+  </a>
+) : (
+  <div class={classes}>
+    <slot />
+  </div>
+)}

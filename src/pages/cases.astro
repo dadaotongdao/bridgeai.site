@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/UI/Container.astro';
+import Section from '../components/UI/Section.astro';
+import Card from '../components/UI/Card.astro';
+import Button from '../components/UI/Button.astro';
+import Badge from '../components/UI/Badge.astro';
+
+// SEO specific to cases page
+const pageTitle = `成功案例 - ${siteConfig.title}`;
+const pageDescription = "查看我们为客户提供的AI自动化解决方案成功案例，包括线索自动化、双语内容管线、售后FAQ机器人等项目。";
+
+// Sample case data - in real implementation this would come from CMS or API
+const cases = [
+  {
+    slug: 'case-1',
+    title: '电商平台线索自动化系统',
+    client: '某知名电商平台',
+    problem: '手动处理销售线索效率低下，转化率仅3%',
+    before: '3000',
+    after: '8500',
+    improvement: '183%',
+    tools: ['Zapier', 'HubSpot', 'Python', 'Google Analytics'],
+    image: '/case-1-hero.jpg',
+    category: '线索自动化'
+  },
+  {
+    slug: 'case-2',
+    title: '双语内容自动化管线',
+    client: '跨境电商平台',
+    problem: '内容翻译和发布流程繁琐，影响市场响应速度',
+    before: '120',
+    after: '15',
+    improvement: '87%',
+    tools: ['GPT-4', 'DeepL', 'WordPress', 'Buffer'],
+    image: '/case-2-hero.jpg',
+    category: '双语内容'
+  }
+];
+
+import { siteConfig } from '../site.config';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <!-- Page Header -->
+  <Section spacing="lg" class="bg-gray-50">
+    <Container>
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          成功案例
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          用数字证明价值，每个案例都有明确的ROI提升
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Cases Grid -->
+  <Section spacing="xl">
+    <Container>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {cases.map((caseStudy) => (
+          <Card 
+            variant="elevated" 
+            href={`/cases/${caseStudy.slug}`}
+            class="group overflow-hidden hover:scale-105 transition-transform duration-300"
+          >
+            <div class="aspect-video bg-gray-200 relative overflow-hidden">
+              <img 
+                src={caseStudy.image} 
+                alt={caseStudy.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+              <div class="absolute top-4 left-4">
+                <Badge variant="primary" size="md">
+                  {caseStudy.category}
+                </Badge>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-500 transition-colors">
+                {caseStudy.title}
+              </h3>
+              <p class="text-gray-600 mb-4">
+                {caseStudy.problem}
+              </p>
+              
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-red-500">{caseStudy.before}</div>
+                  <div class="text-xs text-gray-500">改进前</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-green-500">{caseStudy.after}</div>
+                  <div class="text-xs text-gray-500">改进后</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-primary-500">+{caseStudy.improvement}</div>
+                  <div class="text-xs text-gray-500">提升</div>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <div class="text-sm text-gray-500 mb-2">使用工具：</div>
+                <div class="flex flex-wrap gap-2">
+                  {caseStudy.tools.map((tool) => (
+                    <Badge variant="secondary" size="sm">
+                      {tool}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">客户：{caseStudy.client}</span>
+                <Button variant="ghost" size="sm">
+                  查看详情 →
+                </Button>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+      
+      <!-- More cases coming soon -->
+      <div class="text-center mt-16">
+        <Card variant="outlined" class="p-8 max-w-md mx-auto">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">
+            更多案例即将发布
+          </h3>
+          <p class="text-gray-600 mb-4">
+            我们正在整理更多成功案例，敬请期待
+          </p>
+          <Button href="/contact" variant="primary" size="sm">
+            获取完整案例集
+          </Button>
+        </Card>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section spacing="xl" class="bg-primary-500">
+    <Container>
+      <div class="text-center text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          想成为我们的下一个成功案例吗？
+        </h2>
+        <p class="text-xl mb-8 opacity-90">
+          立即预约免费诊断，获得专属AI解决方案建议
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/contact" variant="secondary" size="lg">
+            免费预约诊断
+          </Button>
+          <Button href="/services" variant="ghost" class="text-white hover:bg-white/20 border-white">
+            查看服务方案
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,375 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/UI/Container.astro';
+import Section from '../components/UI/Section.astro';
+import Card from '../components/UI/Card.astro';
+import Button from '../components/UI/Button.astro';
+import { siteConfig } from '../site.config';
+
+// SEO specific to contact page
+const pageTitle = `联系我们 - ${siteConfig.title}`;
+const pageDescription = "联系Bridge AI Studio，预约免费的AI自动化诊断咨询，获得专属解决方案建议。48小时响应，7天交付。";
+
+// Contact info
+const contactInfo = [
+  {
+    icon: "📧",
+    title: "邮箱联系",
+    content: siteConfig.email,
+    description: "我们会在24小时内回复您的邮件"
+  },
+  {
+    icon: "💬",
+    title: "微信咨询",
+    content: "BridgeAI_Studio",
+    description: "添加微信获得即时咨询"
+  },
+  {
+    icon: "📞",
+    title: "电话咨询",
+    content: "400-123-4567",
+    description: "工作日 9:00-18:00 可接通"
+  }
+];
+
+// FAQ data
+const faqs = [
+  {
+    question: "你们的收费标准是怎样的？",
+    answer: "我们的服务起步价格为8000元，具体根据项目复杂度和需求定制。我们承诺提供透明的报价，没有任何隐藏费用。"
+  },
+  {
+    question: "项目交付周期一般多长？",
+    answer: "标准项目交付周期为7天，复杂项目可能需要10-14天。我们会在诊断阶段给出准确的时间预估。"
+  },
+  {
+    question: "如果项目效果不理想怎么办？",
+    answer: "我们提供30天的免费优化期，确保系统达到预期效果。同时，我们会在项目开始前设定明确的成功指标。"
+  },
+  {
+    question: "是否提供后续技术支持？",
+    answer: "是的，我们提供3个月的免费技术支持，之后可以购买年度维护服务。我们也提供培训和文档，帮助您的团队独立维护系统。"
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <!-- Page Header -->
+  <Section spacing="lg" class="bg-gray-50">
+    <Container>
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          联系我们
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          准备开始您的AI自动化之旅？让我们一起讨论如何将您的业务提升到新的高度
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Contact Form & Info -->
+  <Section spacing="xl">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Contact Form */}
+        <div>
+          <Card variant="elevated" class="p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">
+              预约免费诊断
+            </h2>
+            <p class="text-gray-600 mb-6">
+              填写以下表单，我们将在48小时内联系您，提供专业的AI自动化建议
+            </p>
+            
+            <form 
+              id="contact-form"
+              action={`https://formspree.io/f/${siteConfig.formspree.contactFormId}`}
+              method="POST"
+              class="space-y-6"
+            >
+              {/* Hidden fields */}
+              <input type="hidden" name="page_source" value="contact_page" />
+              <input type="hidden" name="ts" value={new Date().toISOString()} />
+              
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                  姓名 *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="请输入您的姓名"
+                />
+              </div>
+              
+              <div>
+                <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
+                  公司名称
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="请输入您的公司名称"
+                />
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                  邮箱 *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="请输入您的邮箱地址"
+                />
+              </div>
+              
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                  电话
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="请输入您的联系电话"
+                />
+              </div>
+              
+              <div>
+                <label for="service" class="block text-sm font-medium text-gray-700 mb-2">
+                  感兴趣的服务
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  <option value="">请选择服务类型</option>
+                  {siteConfig.services.map((service) => (
+                    <option value={service.title}>{service.title}</option>
+                  ))}
+                  <option value="custom">定制方案</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                  项目描述 *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="请描述您的业务需求和期望达到的目标"
+                ></textarea>
+              </div>
+              
+              <div>
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  size="lg" 
+                  class="w-full"
+                  id="submit-btn"
+                >
+                  提交咨询
+                </Button>
+              </div>
+            </form>
+            
+            {/* Form Messages */}
+            <div id="form-success" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-green-800 font-medium">咨询提交成功！我们将在48小时内联系您。</p>
+              </div>
+            </div>
+            
+            <div id="form-error" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-red-800 font-medium">提交失败，请稍后重试或直接联系我们。</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+        
+        {/* Contact Info */}
+        <div>
+          <div class="space-y-6 mb-8">
+            {contactInfo.map((info) => (
+              <Card variant="outlined" class="p-6">
+                <div class="flex items-start">
+                  <div class="text-3xl mr-4">{info.icon}</div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                      {info.title}
+                    </h3>
+                    <p class="text-primary-500 font-medium mb-1">
+                      {info.content}
+                    </p>
+                    <p class="text-sm text-gray-600">
+                      {info.description}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+          
+          {/* Working Hours */}
+          <Card variant="elevated" class="p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              工作时间
+            </h3>
+            <div class="space-y-2 text-gray-600">
+              <div class="flex justify-between">
+                <span>周一至周五</span>
+                <span>9:00 - 18:00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>周六</span>
+                <span>10:00 - 16:00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>周日</span>
+                <span>休息</span>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-200">
+              <p class="text-sm text-gray-600">
+                紧急情况可随时联系，我们提供24/7技术支持
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section spacing="xl" class="bg-gray-50">
+    <Container>
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          常见问题
+        </h2>
+        <p class="text-xl text-gray-600">
+          快速了解我们的服务和流程
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {faqs.map((faq, index) => (
+          <Card variant="outlined" class="p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">
+              {faq.question}
+            </h3>
+            <p class="text-gray-600">
+              {faq.answer}
+            </p>
+          </Card>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <p class="text-gray-600 mb-4">
+          还有其他问题？直接联系我们获得详细解答
+        </p>
+        <Button href={`mailto:${siteConfig.email}`} variant="primary">
+          发送邮件咨询
+        </Button>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<script>
+  // Types for global analytics
+  declare const gtag: any;
+
+  // Form handling
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const successMsg = document.getElementById('form-success') as HTMLDivElement;
+  const errorMsg = document.getElementById('form-error') as HTMLDivElement;
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Show loading state
+      submitBtn.textContent = '提交中...';
+      submitBtn.disabled = true;
+      
+      // Hide previous messages
+      successMsg.classList.add('hidden');
+      errorMsg.classList.add('hidden');
+      
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Show success message
+          successMsg.classList.remove('hidden');
+          form.reset();
+          
+          // Track conversion (placeholder for analytics)
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_form_submit', {
+              'event_category': 'engagement',
+              'event_label': 'contact_form'
+            });
+          }
+        } else {
+          // Show error message
+          errorMsg.classList.remove('hidden');
+        }
+      } catch (error) {
+        // Show error message
+        errorMsg.classList.remove('hidden');
+      } finally {
+        // Reset button state
+        submitBtn.textContent = '提交咨询';
+        submitBtn.disabled = false;
+      }
+    });
+  }
+  
+  // Form validation
+  const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+  inputs.forEach((inputEl) => {
+    const el = inputEl as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+    el.addEventListener('blur', () => {
+      if ('value' in el && typeof el.value === 'string' && !el.value.trim()) {
+        el.classList.add('border-red-300');
+      } else {
+        el.classList.remove('border-red-300');
+      }
+    });
+  });
+</script>

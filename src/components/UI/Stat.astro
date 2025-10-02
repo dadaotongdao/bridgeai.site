@@ -1,0 +1,29 @@
+---
+export interface Props {
+  value: string;
+  label: string;
+  description?: string;
+  class?: string;
+}
+
+const { 
+  value, 
+  label, 
+  description,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`text-center ${className}`}>
+  <div class="text-4xl md:text-5xl font-bold text-primary-500 mb-2 animate-fade-in">
+    {value}
+  </div>
+  <div class="text-lg md:text-xl font-semibold text-gray-900 mb-1">
+    {label}
+  </div>
+  {description && (
+    <div class="text-sm text-gray-600">
+      {description}
+    </div>
+  )}
+</div>
