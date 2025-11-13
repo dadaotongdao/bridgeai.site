@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+@layer base {
+  body {
+    @apply bg-brand-900 text-gray-100;
+  }
+}
+
+@layer components {
+  /* 胶囊按钮 */
+  .btn-capsule {
+    @apply inline-flex items-center gap-2 px-5 py-2 rounded-full border border-brand-400 bg-brand-800/60 hover:bg-brand-700 transition;
+  }
+  /* 大标题 */
+  .display-header {
+    @apply text-5xl md:text-7xl font-black leading-tight;
+  }
+}
